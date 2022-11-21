@@ -1,21 +1,15 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 const port = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 
-let recipes = [
-    {
-        id: 1,
-        title: 'Pancakes',
-    },
-    {
-        id: 2,
-        title: 'Spaghetti',
-    },
-]
-
 try {
-    mongoose.connect('mongodb://mongoroot:mongoroot@localhost:27017');
+    const host = process.env.MONGO_HOST;
+    const db_port = process.env.MONGO_PORT;
+    const password = process.env.MONGO_INITDB_ROOT_PASSWORD;
+    const username = process.env.MONGO_INITDB_ROOT_USERNAME;
+    mongoose.connect(`mongodb://${username}:${password}@${host}:${db_port}`);
 } catch (error) {
     console.log(error);
 }
@@ -39,21 +33,32 @@ app.post("/recipes", (req, res) => {
     });
 })
 // DELETE recipe
-app.delete('/recipes/:id', (req, res) => {
+app.delete('/recipes/:id', async (req, res) => {
     const { id } = req.params;
-    recipes = recipes.filter(recipe => recipe.id !== Number(id));
-    res.send(recipes);
+
+    try {
+        const recipe = await Recipe.findByIdAndDelete(id)
+        res.send(recipe);
+    } catch (error) {
+        res.status(404).send({
+            error: 'Recipe not found'
+        })
+    }
+
 })
 // UPDATE recipe
-app.put("/recipes/:id", (req, res) => {
+app.put("/recipes/:id", async (req, res) => {
     const { id } = req.params;
-    const recipe = req.body;
-    const recipeIndex = recipes.findIndex(recipe => recipe.id === Number(id));
-    recipes[recipeIndex] = {
-        ...recipes[recipeIndex],
-        ...recipe
-    };
-    res.send(recipes[recipeIndex]);
+    const recipeBody = req.body;
+
+    try {
+        const newRecipe = await Recipe.findByIdAndUpdate(id, recipeBody, { new: true });
+        res.send(newRecipe);
+    } catch (error) {
+        res.status(404).send({
+            error: 'Recipe not found'
+        })
+    }
 })
 // GET ALL recipes
 app.get('/recipes', async (req, res) => {
@@ -61,9 +66,9 @@ app.get('/recipes', async (req, res) => {
     res.send(recipes);
 })
 // GET ONE recipe
-app.get('/recipes/:id', (req, res) => {
+app.get('/recipes/:id', async (req, res) => {
     const { id } = req.params;
-    const recipe = recipes.find(recipe => recipe.id === parseInt(id));
+    const recipe = await Recipe.findById(id);
     res.send(recipe);
 })
 
