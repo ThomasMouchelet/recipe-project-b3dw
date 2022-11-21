@@ -1,4 +1,5 @@
 const Recipe = require('../models/recipe.model');
+const Category = require('../models/category.model');
 
 const recipeController = {
     getAll: async (req, res) => {
@@ -17,13 +18,14 @@ const recipeController = {
     create: async (req, res) => {
         try {
             const recipe = await Recipe.create(req.body);
-            Category.findByIdAndUpdate(recipe.category, { $push: { recipes: recipe._id } });
+            await Category.findByIdAndUpdate(recipe.category, { $push: { recipes: recipe._id } });
             // const category = await Category.findById(recipe.category);
             // category.recipes.push(recipe._id);
             // await category.save();
             
             res.send(recipe);
         } catch (error) {
+            console.log(error);
             res.status(400).send({ message: 'Invalid recipe data' });
         }
     },

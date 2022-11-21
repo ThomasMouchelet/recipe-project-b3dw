@@ -2,7 +2,7 @@ const Category = require('../models/category.model');
 
 const categoryController = {
     getAll: async (req, res) => {
-        const categories = await Category.find();
+        const categories = await Category.find().populate('recipes');
         res.send(categories);
     },
     getOne: async (req, res) => {
