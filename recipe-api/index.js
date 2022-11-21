@@ -5,10 +5,12 @@ const port = process.env.PORT || 8000;
 const connectMongo = require('./config/mongo.config');
 const categoryRouter = require('./src/routers/category.router');
 const recipeRouter = require('./src/routers/recipe.router');
+const cors = require('cors');
 
 connectMongo()
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
