@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "4557d642-3ded-40d7-8992-c9a32da0f518",
+		"name": "recipe-project-b3dw",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4543863"
+	},
+	"item": [
+		{
+			"name": "recipes",
+			"item": [
+				{
+					"name": "get all recipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/recipes",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/recipes/637b715cb4c18b7dd9fd3540",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"recipes",
+								"637b715cb4c18b7dd9fd3540"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update recipe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Recipe POSTMAN update 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/recipes/fsqfqsd",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"recipes",
+								"fsqfqsd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Lasagne 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/recipes",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/recipes/637b715cb4c18b7dd9fddsdfsq3540",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"recipes",
+								"637b715cb4c18b7dd9fddsdfsq3540"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/categories",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/categories/637b715cb4c18b7dd9fd3540",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"categories",
+								"637b715cb4c18b7dd9fd3540"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update recipe Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Recipe POSTMAN update 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/categories/fsqfqsd",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"categories",
+								"fsqfqsd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dessert\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/categories",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/categories/637b715cb4c18b7dd9fddsdfsq3540",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"categories",
+								"637b715cb4c18b7dd9fddsdfsq3540"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
