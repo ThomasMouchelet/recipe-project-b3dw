@@ -4,19 +4,28 @@ const RecipesList = () => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
+        fetchAllRecipes()
+    }, [])
+
+    const fetchAllRecipes = () => {
         fetch("http://localhost:8000/recipes")
             .then((res) => res.json())
             .then((data) => setRecipes(data));
-    }, [])
+    }
 
     const handleDelete = (id) => {
         console.log("delete", id);
         // fetch delete request
+        fetch(`http://localhost:8000/recipes/${id}`, {
+            method: "DELETE"
+        }).then((res) => res.json())
+            .then(() => fetchAllRecipes())
     }
 
     return ( 
         <div>
             <h1>Recipes List</h1>
+            
 
             <ul>
                 {recipes.map((recipe) => (
