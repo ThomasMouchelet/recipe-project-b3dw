@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config()
 const port = process.env.PORT || 8000;
 const connectMongo = require('./config/mongo.config');
-const recipeRouter = require('./routers/recipe.router');
+const recipeRouter = require('./src/routers/recipe.router');
 
 connectMongo()
 

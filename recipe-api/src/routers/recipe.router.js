@@ -8,3 +8,8 @@ router.get('/recipes', (req, res) => {
 router.get('/recipes/:id', (req, res) => {
     recipeController.getOne(req, res);
 })
+// create
+// update
+// delete
+
+module.exports = router;
