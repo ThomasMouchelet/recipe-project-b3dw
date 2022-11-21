@@ -14,12 +14,13 @@ let recipes = [
     },
 ]
 
-mongoose.connect('mongodb://mongoroot:mongoroot@localhost:27017');
+try {
+    mongoose.connect('mongodb://mongoroot:mongoroot@localhost:27017');
+} catch (error) {
+    console.log(error);
+}
 
-const Cat = mongoose.model('Cat', { name: String });
-
-const kitty = new Cat({ name: 'Zildjian' });
-kitty.save().then(() => console.log('meow'));
+const Recipe = mongoose.model('Recipe', { title: String });
 
 app.use(express.json());
 
@@ -29,10 +30,13 @@ app.get('/', (req, res) => {
 
 // CREATE recipe
 app.post("/recipes", (req, res) => {
-    const recipe = req.body;
-    recipe.id = recipes.length + 1;
-    recipes.push(recipe);
-    res.send(recipe);
+    const recipe = new Recipe({
+        title: req.body.title,
+    });
+    
+    recipe.save().then(() => {
+        res.send(recipe);
+    });
 })
 // DELETE recipe
 app.delete('/recipes/:id', (req, res) => {
@@ -52,7 +56,8 @@ app.put("/recipes/:id", (req, res) => {
     res.send(recipes[recipeIndex]);
 })
 // GET ALL recipes
-app.get('/recipes', (req, res) => {
+app.get('/recipes', async (req, res) => {
+    const recipes = await Recipe.find();
     res.send(recipes);
 })
 // GET ONE recipe
