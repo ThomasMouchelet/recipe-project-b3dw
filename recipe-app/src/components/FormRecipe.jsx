@@ -1,7 +1,9 @@
 import { useState } from "react";
+import RecipesService from "../services/recipes.service";
+import { toast } from 'react-toastify';
 
-const FormRecipe = ({fetchAllRecipes}) => {
-    const [credentials, setCredentials] = useState({})
+const FormRecipe = ({fetchAllRecipes, recipe}) => {
+    const [credentials, setCredentials] = useState(recipe)
 
     const handleChange = (e) => {
         const {value, name} = e.target
@@ -11,26 +13,26 @@ const FormRecipe = ({fetchAllRecipes}) => {
         })
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        fetch("http://localhost:8000/recipes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(credentials)
-        })
-            .then((res) => res.json())
-            .then((data) => fetchAllRecipes())
-
+        try {
+            if(recipe) {
+                await RecipesService.update(recipe._id, credentials)
+                toast.success('Recette mise à jour')
+            } else {
+                await RecipesService.create(credentials)
+                fetchAllRecipes()
+                toast.success('Recette créée')
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return ( 
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Title" name="title" onChange={handleChange} />
-            <input type="text" placeholder="time" name="time" onChange={handleChange} />
-            <input type="submit" value="Ajouter" />
+            <input type="text" placeholder="Title" value={credentials?.title} name="title" onChange={handleChange} />
+            <input type="submit" value={recipe ? "Mettre à jour" : "Ajouter"} />
         </form>
      );
 }
