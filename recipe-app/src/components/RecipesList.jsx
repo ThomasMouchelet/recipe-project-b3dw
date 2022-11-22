@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import FormRecipe from "./FormRecipe";
+import { getAll } from "../services/recipes.service";
 
 const RecipesList = () => {
     const [recipes, setRecipes] = useState([]);
@@ -7,10 +9,13 @@ const RecipesList = () => {
         fetchAllRecipes()
     }, [])
 
-    const fetchAllRecipes = () => {
-        fetch("http://localhost:8000/recipes")
-            .then((res) => res.json())
-            .then((data) => setRecipes(data));
+    const fetchAllRecipes = async () => {
+        try {
+            const data = await getAll()
+            setRecipes(data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleDelete = (id) => {
@@ -24,10 +29,12 @@ const RecipesList = () => {
 
     return ( 
         <div>
-            <h1>Recipes List</h1>
-            
+            <FormRecipe fetchAllRecipes={fetchAllRecipes} />
 
+            <h1>Recipes List</h1>
+        
             <ul>
+                {recipes.length <= 0 && <p>Aucune recette pour le moment</p>}
                 {recipes.map((recipe) => (
                     <li key={recipe._id}>
                         {recipe.title}

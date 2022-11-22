@@ -1,4 +1,8 @@
-# Start project (dev)
+# Start project with Makefile
+```bash
+make init
+```
+# Start project manualy (dev)
 ```bash
 docker-compose up -d
 npm run start:dev
