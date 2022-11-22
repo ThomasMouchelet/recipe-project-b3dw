@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FormRecipe from "./FormRecipe";
-import { getAll } from "../services/recipes.service";
+import RecipesService from "../services/recipes.service";
 
 const RecipesList = () => {
     const [recipes, setRecipes] = useState([]);
@@ -11,7 +11,7 @@ const RecipesList = () => {
 
     const fetchAllRecipes = async () => {
         try {
-            const data = await getAll()
+            const data = await RecipesService.getAll()
             setRecipes(data)
         } catch (error) {
             console.log(error)
