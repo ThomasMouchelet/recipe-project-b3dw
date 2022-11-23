@@ -5,6 +5,7 @@ const port = process.env.PORT || 8000;
 const connectMongo = require('./config/mongo.config');
 const categoryRouter = require('./src/routers/category.router');
 const recipeRouter = require('./src/routers/recipe.router');
+const userRouter = require('./src/routers/user.router');
 const cors = require('cors');
 
 connectMongo()
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 app.use(recipeRouter)
 app.use(categoryRouter)
+app.use(userRouter)
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
