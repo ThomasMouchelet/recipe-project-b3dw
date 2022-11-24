@@ -13,7 +13,14 @@ const getOne = async (id) => {
 }
 
 const create = async (recipe) => {
-    const response = await axios.post(RECIPE_ENDPOINT, recipe);
+    const token = localStorage.getItem('accessToken');
+    const config = {
+        headers: { 
+            Authorization: `Bearer ${token}`,
+            ContentType: "application/json"
+        }
+    };
+    const response = await axios.post(RECIPE_ENDPOINT, recipe, config);
     return response.data;
 }
 
