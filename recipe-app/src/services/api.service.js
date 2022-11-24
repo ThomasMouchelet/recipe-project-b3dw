@@ -2,7 +2,7 @@ import axios from "axios";
 import TokenService from "./token.service";
 
 const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_API}`,
+  baseURL: `${process.env.REACT_APP_API_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -10,10 +10,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const data  = TokenService.getLocalAccessToken();
+    const accessToken  = TokenService.getLocalAccessToken();
   
-    if (data && data.accessToken) {
-      config.headers["Authorization"] = 'Bearer ' + data.accessToken;
+    if (accessToken) {
+      config.headers["Authorization"] = 'Bearer ' + accessToken;
     }
     return config;
   },
