@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
     const authorization = req.headers.authorization
     if (authorization == undefined) {
         return res.status(401).send({message: "Unauthorized"});
@@ -14,4 +14,4 @@ authMiddleware = (req, res, next) => {
     next()
 }
 
-exports.authMiddleware = authMiddleware;
+module.exports = authMiddleware;
