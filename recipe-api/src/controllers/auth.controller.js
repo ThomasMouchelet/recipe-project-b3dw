@@ -11,7 +11,7 @@ const authController = {
         delete newUser.password
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' })
         res.send({
-            authToken: token
+            accessToken: token
         })
     },
     signin: async (req, res) => {
@@ -29,7 +29,7 @@ const authController = {
         } else {
             const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' })
             res.send({
-                authToken: token
+                accessToken: token
             })
         }
     }
